@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Fetch API Sandbox</title>
+</head>
+<body>
+<button id="getText">Get Text</button>
+<button id="getUsers">Get Users</button>
+<div id="output"></div>
+<script>
+    document.getElementById('getText').addEventListener('click', getText);
+
+    function getText(){
+        fetch('sample.txt')
+        .then((res) => res.text())
+        .then((data) => {
+            document.getElementById('output').innerHTML = data;
+        })
+        .catch((err) => console.log(err)) 
+    }
+
+    document.getElementById('getUsers').addEventListener('click', getUsers);
+
+    function getUsers(){
+        fetch('data.json')
+        .then(res => res.json())
+        .then((data) => {
+            let output = '<h2>Users</h2>'
+            data.forEach((user) => {
+                output += `
+                    <ul>
+                        <li>ID: ${user.id} </li>
+                        <li>Email: ${user.email} </li>
+                        <li>Name: ${user.name} </li>
+                    </ul>
+                `
+
+                document.getElementById('output').innerHTML = output;
+
+            })
+        })
+    }
+
+
+</script>
+</body>
+</html>
